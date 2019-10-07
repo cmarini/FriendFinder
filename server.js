@@ -1,20 +1,21 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var path = require('path');
-require('./app/data/friends.js');
 
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+require('./app/routing/apiRoutes.js')(app);
+require('./app/routing/htmlRoutes.js')(app);
+
+
 
 let PORT = 3000;
 
-app.get('/', function (req, res) {
-    console.log("serving:" + path.join(__dirname,'/app/public/home.html'));
-    res.sendFile(path.join(__dirname,'/app/public/home.html'));
-});
 
-app.get('/survey', function (req, res) {
-    console.log("serving:" + path.join(__dirname,'/app/public/survey.html'));
-    res.sendFile(path.join(__dirname,'/app/public/survey.html'));
+app.post('/surveySubmit', (req, res) => {
+    console.log("Receiving survey data");
+    console.log(req.body);
+    res.redirect('back');
 });
 
 
