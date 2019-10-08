@@ -8,10 +8,15 @@
     <meta name="description" content="Survey">
 
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <form action="/api/friends" method="post">
+    <div id="bff">
+        <span id='bff-name'></span>
+        <img id='bff-image'>
+    </div>
+    <form id='surveyForm'>
         <input name='name' type='text'>
         <br>
         <input name='photo' type='text'>
@@ -116,7 +121,17 @@
             <option value='5'>5</option>
         </select>
         <br>
-        <input type="submit" value="Submit">
+        <input id ="submit" type="submit" value="Submit">
     </form>
+    <script>
+        $('#submit').click(e => {
+            e.preventDefault();
+            $.post('/api/friends', $('#surveyForm').serialize(), data => {
+                console.log(data);
+                $('#bff-name').text(data.name);
+                $('#bff-image').attr('src', data.photo);
+            });
+        });
+    </script>
 </body>
 </html>
