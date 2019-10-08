@@ -9,7 +9,7 @@ require('./app/routing/htmlRoutes.js')(app);
 
 
 
-let PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 
 app.post('/surveySubmit', (req, res) => {
